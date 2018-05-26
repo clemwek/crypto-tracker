@@ -16,9 +16,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     let baseURL = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC"
     let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
-    let currencySymble = ["$", "R$", "$", "¥", "€", "£", "$", "Rp", "₪", "₹", "¥", "$", "kr", "$", "zł", "lei", "₽", "kr", "$", "$", "R"]
+    let currencySymbol = ["$", "R$", "$", "¥", "€", "£", "$", "Rp", "₪", "₹", "¥", "$", "kr", "$", "zł", "lei", "₽", "kr", "$", "$", "R"]
     var finalURL = ""
-    var selectedCurrencySymble = ""
+    var selectedCurrencySymbol = ""
 
     //Pre-setup IBOutlets
     @IBOutlet weak var bitcoinPriceLabel: UILabel!
@@ -32,7 +32,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         currencyPicker.delegate = self
         currencyPicker.dataSource = self
         
-        selectedCurrencySymble = currencySymble[0]
+        selectedCurrencySymbol = currencySymbol[0]
         getBitcoin(url: "\(baseURL)\(currencyArray[0])")
        
     }
@@ -48,7 +48,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        selectedCurrencySymble = currencySymble[row]
+        selectedCurrencySymbol = currencySymbol[row]
         return currencyArray[row]
     }
     
@@ -92,7 +92,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     func updateBitcoinData(json : JSON) {
 
         if let bitcoinResult = json["averages"]["day"].double {
-            bitcoinPriceLabel.text = "\(selectedCurrencySymble) \(bitcoinResult)"
+            bitcoinPriceLabel.text = "\(selectedCurrencySymbol) \(bitcoinResult)"
         } else {
             bitcoinPriceLabel.text = "connection issues"
         }
